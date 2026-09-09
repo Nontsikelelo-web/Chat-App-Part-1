@@ -16,7 +16,7 @@ class Login {
     private String password;
     private String cellPhoneNumber;
 
-    private boolean loginStatus;
+    private boolean loginStatus;//testing
 
 
     // Constructor
