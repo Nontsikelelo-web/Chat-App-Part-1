@@ -14,6 +14,8 @@ public class ChatApp {
 
     public static void main(String[] args) {
        Scanner input = new Scanner(System.in);
+       
+       
         System.out.println("=== REGISTRATION ===");
         //Asks the user to enter their first name.
         System.out.println("Enter first name");
@@ -38,8 +40,11 @@ public class ChatApp {
         Login user = new Login(firstName, lastName, username, password, cellPhoneNumber);
         
         System.out.println(user.registerUser());
+        String hasReg = "User registered successfully.";
         
-        System.out.println("\n=== LOGIN ===");
+        
+        if(user.registerUser()== hasReg){
+            System.out.println("\n=== LOGIN ===");
         
         System.out.println("Enter username:");
         String loginUsername = input.nextLine();
@@ -51,5 +56,7 @@ public class ChatApp {
         
         System.out.println(user.returnLoginStatus());
         input.close();
+        }
+        
     }
 }
