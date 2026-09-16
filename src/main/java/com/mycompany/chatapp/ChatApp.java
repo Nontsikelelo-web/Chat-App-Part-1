@@ -44,7 +44,7 @@ public class ChatApp {
         
         
         if(user.registerUser()== hasReg){
-            System.out.println("\n=== LOGIN ===");
+        System.out.println("\n=== LOGIN ===");
         
         System.out.println("Enter username:");
         String loginUsername = input.nextLine();

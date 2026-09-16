@@ -31,7 +31,7 @@ class Login {
     }
 
 
-    // it Check if the user name is written properly.
+    // it Checks if the user name is written properly.
     public boolean checkUserName() {
 
         if (username.contains("_") && username.length() <= 5) {
@@ -104,8 +104,7 @@ class Login {
                     + "that your username contains an underscore and is "
                     + "no more than five characters in length.";
 
-        }else
-        {
+        }else{
 
         System.out.println("Username successfully captured.");
         }
@@ -120,8 +119,7 @@ class Login {
         }else{
 
             System.out.println("Password successfully captured.");
-            
-        }
+            }
 
 
         if (!checkCellPhoneNumber()) {
@@ -137,7 +135,6 @@ class Login {
 
 
         return "User registered successfully.";
-        
          }
 
 
@@ -155,8 +152,7 @@ class Login {
          }
 
         return loginStatus;
-        
-    }
+         }
 
 
     // Returns the login status message  to the user
@@ -167,15 +163,13 @@ class Login {
             return "Welcome "+ firstName + " "+ lastName
                     + " it is great to see you.";
 
-        } else {
+        }else{
 
             return "Username or password incorrect, please try again.";
         
                  }
-        
-    }
+        }
     
-       
-}
+ }
     
 
