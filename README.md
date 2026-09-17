@@ -8,7 +8,7 @@ After registration, the user can log in using the same username and password. Th
 
 ## Technologies Used
 
-- Java
+- Java 
 - NetBeans
 - Maven
 - JUnit
