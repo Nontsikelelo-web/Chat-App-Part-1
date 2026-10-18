@@ -1,10 +1,10 @@
 QuickChat.
 
-Project Description
+Project Description:
 
 QuickChat is a Java-based console application developed to demonstrate user registration, login authentication, and message management. Users can register an account, log in, send messages, disregard messages, or store message details in a JSON file.
 
-Features
+Features:
 
 User registration and login authentication.
 Username, password, and cellphone number validation.
@@ -16,9 +16,16 @@ Displaying recently sent messages.
 Tracking the total number of messages sent.
 Technologies Used
 
-Testing
+Testing:
 
 The application includes unit tests written using JUnit 5 to verify the message functionality.
+
+Running the Tests:
+
+1. Open the project in NetBeans IDE
+2. Navigate to test files under the Test Packages section
+3. Right click the project and select Test.
+4. Review the results to check whether the tests pass.
 
 Java
 NetBeans IDE
