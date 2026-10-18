@@ -1,4 +1,4 @@
-QuickChat
+QuickChat.
 
 Project Description
 
@@ -15,6 +15,10 @@ Storing message details in a JSON file (messages.json).
 Displaying recently sent messages.
 Tracking the total number of messages sent.
 Technologies Used
+
+Testing
+
+The application includes unit tests written using JUnit 5 to verify the message functionality.
 
 Java
 NetBeans IDE
