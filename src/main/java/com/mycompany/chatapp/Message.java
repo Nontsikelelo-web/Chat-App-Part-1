@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class Message {
 
-    private static long nextId = 1;
+    private static final java.security.SecureRandom RANDOM = new java.security.SecureRandom();
     private static int totalMessagesSent = 0;
 
     private final String messageID;
@@ -51,8 +51,7 @@ public class Message {
         this.recipient = recipient.trim();
         this.messageText = messageText.trim();
 
-        this.messageID = String.format(
-                Locale.ROOT, "%010d", nextId++);
+        this.messageID = String.valueOf(RANDOM.nextLong(1_000_000L, 10_000_000_000L));
 
         this.messageHash = createMessageHash();
         this.sent = false;
