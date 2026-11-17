@@ -48,7 +48,7 @@ public class ChatApp {
         String hasReg = "User registered successfully.";
         
         
-        if(user.registerUser()== hasReg){
+        if ("User registered successfully.".equals(registrationResult)){ 
         System.out.println("\n=== LOGIN ===");
         
         System.out.println("Enter username:");
@@ -106,8 +106,7 @@ public class ChatApp {
 
                     for (int i = 0; i < numberOfMessages; i++) {
                         System.out.println("\nEntering message " + (i + 1));
-
-String recipient;
+                        String recipient;
 
 while (true) {
     System.out.print("Enter recipient number: ");
@@ -136,7 +135,7 @@ while (true) {
     }
 
     System.out.println("Please enter a message containing 1 to 250 characters.");
-}
+}                 
 
                         Message message = new Message(
                                 i, recipient, messageText);
@@ -153,7 +152,8 @@ while (true) {
                            System.out.println(message.sendMessage());
                                  message.displayMessage();
                             sentMessages.add(message);
-                           break;
+                          
+                            break;
 
                         case "2":
                           System.out.println("Press 0 to delete the message.");
@@ -184,7 +184,9 @@ while (true) {
                   System.out.println("Invalid action. Message discarded.");
                   break;
                  }
-                    }
+                    } 
+                    System.out.println("\nTotal messages sent: " + Message.getTotalMessagesSent());
+                    
                     break;
 
                 case "2":
