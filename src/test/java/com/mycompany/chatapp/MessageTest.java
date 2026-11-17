@@ -5,10 +5,14 @@
 
 package com.mycompany.chatapp;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.io.TempDir;
 
 class MessageTest {
 
@@ -193,6 +197,384 @@ class MessageTest {
                 IllegalArgumentException.class,
                 () -> new Message(0, "+27718693002", ""));
     }
+    @TempDir
+    Path temporaryFolder;
+
+    // Lecturer test data: Message 1.
+    private Message createMessage1() {
+
+        return new Message(
+                1,
+                "Developer",
+                "+27834557896",
+                "Did you get the cake?"
+        );
+    }
+
+    // Lecturer test data: Message 2.
+    private Message createMessage2() {
+
+        return new Message(
+                2,
+                "Developer",
+                "+27838884567",
+                "Where are you? You are late! I have asked you to be on time."
+        );
+    }
+
+    // Lecturer test data: Message 3.
+    private Message createMessage3() {
+
+        return new Message(
+                3,
+                "Developer",
+                "+27834484567",
+                "Yohoooo, I am at your gate."
+        );
+    }
+
+    // Lecturer test data: Message 4.
+    // The lecturer's expected ID search value is 0838884567.
+    private Message createMessage4() {
+
+        return new Message(
+                "0838884567",
+                4,
+                "Developer",
+                "0838884567",
+                "It is dinner time !"
+        );
+    }
+
+    // Lecturer test data: Message 5.
+    private Message createMessage5() {
+
+        return new Message(
+                5,
+                "Developer",
+                "+27838884567",
+                "Ok, I am leaving without you."
+        );
+    }
+
+    // TEST 1: Sent Messages array correctly populated.
+    @Test
+    void testSentMessagesArrayCorrectlyPopulated() {
+
+        Message[] sentMessages = new Message[2];
+
+        sentMessages[0] = createMessage1();
+        sentMessages[1] = createMessage4();
+
+        assertEquals(
+                "Did you get the cake?",
+                sentMessages[0].getMessageText()
+        );
+
+        assertEquals(
+                "It is dinner time !",
+                sentMessages[1].getMessageText()
+        );
+
+        assertEquals(2, sentMessages.length);
+    }
+
+    // TEST 2: Display the longest message.
+    @Test
+    void testDisplayLongestMessage() {
+
+        Message[] messages = {
+            createMessage1(),
+            createMessage2(),
+            createMessage3(),
+            createMessage4()
+        };
+
+        Message longest =
+                Message.findLongestMessage(messages);
+
+        assertNotNull(longest);
+
+        assertEquals(
+                "Where are you? You are late! I have asked you to be on time.",
+                longest.getMessageText()
+        );
+    }
+
+    // TEST 3: Search for message ID.
+    @Test
+    void testSearchForMessageID() {
+
+        Message[] messages = {
+            createMessage1(),
+            createMessage2(),
+            createMessage3(),
+            createMessage4()
+        };
+
+        Message found = Message.findByMessageID(
+                messages,
+                "0838884567"
+        );
+
+        assertNotNull(found);
+
+        assertEquals(
+                "It is dinner time !",
+                found.getMessageText()
+        );
+    }
+
+    // TEST 4: Search messages for a particular recipient.
+    @Test
+    void testSearchMessagesByRecipient() {
+
+        Message[] messages = {
+            createMessage1(),
+            createMessage2(),
+            createMessage3(),
+            createMessage4(),
+            createMessage5()
+        };
+
+        Message[] found = Message.findByRecipient(
+                messages,
+                "+27838884567"
+        );
+
+        assertEquals(2, found.length);
+
+        assertEquals(
+                "Where are you? You are late! I have asked you to be on time.",
+                found[0].getMessageText()
+        );
+
+        assertEquals(
+                "Ok, I am leaving without you.",
+                found[1].getMessageText()
+        );
+    }
+
+    // TEST 5: Delete a message using its message hash.
+    @Test
+    void testDeleteMessageUsingMessageHash() throws IOException {
+
+        Path file = temporaryFolder.resolve("messages.json");
+
+        Message message1 = createMessage1();
+        Message message2 = createMessage2();
+        Message message5 = createMessage5();
+
+        List<Message> messages = new ArrayList<>();
+
+        messages.add(message1);
+        messages.add(message2);
+        messages.add(message5);
+
+        Message.writeMessages(file, messages);
+
+        boolean deleted = Message.deleteMessageByHash(
+                file,
+                message2.getMessageHash()
+        );
+
+        assertTrue(deleted);
+
+        List<Message> remainingMessages =
+                Message.readMessages(file);
+
+        assertEquals(2, remainingMessages.size());
+
+        assertFalse(
+                remainingMessages.stream().anyMatch(
+                        message -> message.getMessageHash()
+                                .equals(message2.getMessageHash())
+                )
+        );
+    }
+
+    // TEST 6: Display report containing sent messages.
+    @Test
+    void testDisplayMessageReport() {
+
+        Message[] sentMessages = {
+            createMessage1(),
+            createMessage4()
+        };
+
+        String report =
+                Message.createReport(sentMessages);
+
+        assertTrue(report.contains("Message Hash:"));
+        assertTrue(report.contains("Recipient:"));
+        assertTrue(report.contains("Message:"));
+
+        assertTrue(
+                report.contains("Did you get the cake?")
+        );
+
+        assertTrue(
+                report.contains("It is dinner time !")
+        );
+    }
+
+    // TEST 7: Check that a normal message receives a 10-digit ID.
+    @Test
+    void testMessageIDContainsTenDigits() {
+
+        Message message = createMessage1();
+
+        assertTrue(
+                message.getMessageID().matches("\\d{10}")
+        );
+    }
+
+    
+    // TEST 10: Check that an empty message is rejected.
+    @Test
+    void testEmptyMessageIsRejected() {
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Message(
+                        1,
+                        "Developer",
+                        "+27834557896",
+                        ""
+                )
+        );
+    }
+
+    // TEST 11: Check that a message over 250 characters is rejected.
+    @Test
+    void testMessageOver250CharactersIsRejected() {
+
+        String longMessage = "A".repeat(251);
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Message(
+                        1,
+                        "Developer",
+                        "+27834557896",
+                        longMessage
+                )
+        );
+    }
+
+    // TEST 12: Check that messages can be written and read from JSON.
+    @Test
+    void testReadAndWriteJSONFile() throws IOException {
+
+        Path file = temporaryFolder.resolve("messages.json");
+
+        Message message = createMessage1();
+
+        List<Message> messages = new ArrayList<>();
+        messages.add(message);
+
+        Message.writeMessages(file, messages);
+
+        List<Message> loadedMessages =
+                Message.readMessages(file);
+
+        assertEquals(1, loadedMessages.size());
+
+        assertEquals(
+                message.getMessageText(),
+                loadedMessages.get(0).getMessageText()
+        );
+
+        assertEquals(
+                message.getRecipient(),
+                loadedMessages.get(0).getRecipient()
+        );
+
+        assertEquals(
+                message.getSender(),
+                loadedMessages.get(0).getSender()
+        );
+    }
+
+    // TEST 13: Check that storing a message saves it in JSON.
+    @Test
+    void testStoreMessageInJSONFile() throws IOException {
+
+        Path file = temporaryFolder.resolve("messages.json");
+
+        Message message = createMessage2();
+
+        String result = message.storeMessage(file);
+
+        assertEquals(
+                "Message successfully stored.",
+                result
+        );
+
+        List<Message> storedMessages =
+                Message.readMessages(file);
+
+        assertEquals(1, storedMessages.size());
+
+        assertEquals(
+                message.getMessageText(),
+                storedMessages.get(0).getMessageText()
+        );
+    }
+
+    // TEST 14: An unknown hash must not delete a message.
+    @Test
+    void testUnknownHashDoesNotDeleteMessage() throws IOException {
+
+        Path file = temporaryFolder.resolve("messages.json");
+
+        Message message = createMessage2();
+
+        List<Message> messages = new ArrayList<>();
+        messages.add(message);
+
+        Message.writeMessages(file, messages);
+
+        boolean deleted = Message.deleteMessageByHash(
+                file,
+                "UNKNOWNHASH"
+        );
+
+        assertFalse(deleted);
+
+        List<Message> remainingMessages =
+                Message.readMessages(file);
+
+        assertEquals(1, remainingMessages.size());
+    }
+
+    // TEST 15: Check that JSON keeps special characters.
+    @Test
+    void testJSONKeepsSpecialCharacters() throws IOException {
+
+        Path file = temporaryFolder.resolve("messages.json");
+
+        Message message = new Message(
+                1,
+                "Developer",
+                "+27834557896",
+                "Hello! \"How are you?\""
+        );
+
+        List<Message> messages = new ArrayList<>();
+        messages.add(message);
+
+        Message.writeMessages(file, messages);
+
+        List<Message> loadedMessages =
+                Message.readMessages(file);
+
+        assertEquals(
+                "Hello! \"How are you?\"",
+                loadedMessages.get(0).getMessageText()
+        );
+    }
 }
+
 
 
