@@ -105,29 +105,38 @@ public class ChatApp {
                     }
 
                     for (int i = 0; i < numberOfMessages; i++) {
-                        System.out.println(
-                                "\nEntering message " + (i + 1));
+                        System.out.println("\nEntering message " + (i + 1));
 
-                        System.out.print("Enter recipient number: ");
-                        String recipient = input.nextLine().trim();
+String recipient;
 
-                        System.out.println(
-                                Message.validateRecipientNumber(recipient));
+while (true) {
+    System.out.print("Enter recipient number: ");
+    recipient = input.nextLine().trim();
 
-                        if (!Message.isValidRecipient(recipient)) {
-                            continue;
-                        }
+    System.out.println(Message.validateRecipientNumber(recipient));
 
-                        System.out.print("Enter your message: ");
-                        String messageText = input.nextLine();
+    if (Message.isValidRecipient(recipient)) {
+        break;
+    }
 
-                        System.out.println(
-                                Message.validateMessageLength(messageText));
+    System.out.println("Please enter a valid cellphone number.");
+}
 
-                        if (messageText.trim().isEmpty()
-                                || messageText.length() > 250) {
-                            continue;
-                        }
+String messageText;
+
+while (true) {
+    System.out.print("Enter your message: ");
+    messageText = input.nextLine();
+
+    System.out.println(Message.validateMessageLength(messageText));
+
+    if (!messageText.trim().isEmpty()
+            && messageText.trim().length() <= 250) {
+        break;
+    }
+
+    System.out.println("Please enter a message containing 1 to 250 characters.");
+}
 
                         Message message = new Message(
                                 i, recipient, messageText);
