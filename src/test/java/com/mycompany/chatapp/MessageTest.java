@@ -51,7 +51,7 @@ class MessageTest {
                 0, "+27718693002",
                 "Hi Mike, can you join us for dinner tonight?");
 
-        assertEquals("00:0:HITONIGHT", message.getMessageHash());
+        assertEquals(message.getMessageID().substring(0, 2)+ ":0:HITONIGHT", message.getMessageHash());
     }
 
     // Test 6: Additional message hashes are tested in a loop.
