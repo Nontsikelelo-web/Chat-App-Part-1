@@ -109,9 +109,8 @@ public class ChatApp {
 
             System.out.println("\n========== QUICKCHAT ==========");
             System.out.println("1. Send Messages");
-            System.out.println("2. Store recently sent messages \"Coming Soon\"");
+            System.out.println("2. Stored Messages");
             System.out.println("3. Quit");
-            System.out.println("4. Stored Messages");
 
             System.out.print("Choose an option: ");
 
@@ -250,57 +249,50 @@ public class ChatApp {
 
                     break;
 
+               
+                
                 case "2":
 
-                    System.out.println(
-                            "Store recently sent messages Coming Soon."
-                    );
+                    storedCount = loadStoredMessages(storedMessages);
 
-                    break;
+        allCount = rebuildParallelArrays(
+                sentMessages, sentCount,
+                disregardedMessages, disregardedCount,
+                storedMessages, storedCount,
+                allMessages, messageIDs, messageHashes
+        );
 
-                case "3":
+        storedCount = storedMessagesMenu(
+                input,
+                sentMessages,
+                sentCount,
+                disregardedMessages,
+                disregardedCount,
+                storedMessages,
+                storedCount,
+                allMessages,
+                messageIDs,
+                messageHashes,
+                allCount
+        );
+
+        storedCount = loadStoredMessages(storedMessages);
+
+        allCount = rebuildParallelArrays(
+                sentMessages, sentCount,
+                disregardedMessages, disregardedCount,
+                storedMessages, storedCount,
+                allMessages, messageIDs, messageHashes
+        );
+
+        break;
+        
+        case "3":
 
                     running = false;
 
                     System.out.println(
                             "Thank you for using Quick Chat."
-                    );
-
-                    break;
-
-                case "4":
-
-                    storedCount = loadStoredMessages(storedMessages);
-
-                    allCount = rebuildParallelArrays(
-                            sentMessages, sentCount,
-                            disregardedMessages, disregardedCount,
-                            storedMessages, storedCount,
-                            allMessages, messageIDs, messageHashes
-                    );
-
-                    storedCount = storedMessagesMenu(
-                            input,
-                            sentMessages,
-                            sentCount,
-                            disregardedMessages,
-                            disregardedCount,
-                            storedMessages,
-                            storedCount,
-                            allMessages,
-                            messageIDs,
-                            messageHashes,
-                            allCount
-                    );
-
-                    // Refresh arrays after leaving the submenu.
-                    storedCount = loadStoredMessages(storedMessages);
-
-                    allCount = rebuildParallelArrays(
-                            sentMessages, sentCount,
-                            disregardedMessages, disregardedCount,
-                            storedMessages, storedCount,
-                            allMessages, messageIDs, messageHashes
                     );
 
                     break;

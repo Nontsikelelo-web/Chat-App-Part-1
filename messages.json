@@ -1,1 +1,66 @@
-[{"messageID":"0000000001","messageHash":"00:0:HELLOYOU","recipient":"+27662980380","messageText":"Hello, how are you?","messageNumber":0},{"messageID":"0000000001","messageHash":"00:0:HEYGOOD","recipient":"+27662980380","messageText":"Hey there, I hope you are good.","messageNumber":0},{"messageID":"0000000001","messageHash":"00:0:HEYMPHO","recipient":"+27662980380","messageText":"Hey Mpho","messageNumber":0}]
+[
+  {
+    "messageID": "0000000001",
+    "messageHash": "00:0:HELLOYOU",
+    "sender": "Unknown",
+    "recipient": "+27662980380",
+    "messageText": "Hello, how are you?",
+    "messageNumber": 0
+  },
+  {
+    "messageID": "0000000001",
+    "messageHash": "00:0:HEYGOOD",
+    "sender": "Unknown",
+    "recipient": "+27662980380",
+    "messageText": "Hey there, I hope you are good.",
+    "messageNumber": 0
+  },
+  {
+    "messageID": "0000000001",
+    "messageHash": "00:0:HEYMPHO",
+    "sender": "Unknown",
+    "recipient": "+27662980380",
+    "messageText": "Hey Mpho",
+    "messageNumber": 0
+  },
+  {
+    "messageID": "2013797908",
+    "messageHash": "20:2:WHERETIME",
+    "sender": "Nontsikeleo Panyapanya",
+    "recipient": "+27838884567",
+    "messageText": "Where are you? You are late! I have asked you to be on time",
+    "messageNumber": 2
+  },
+  {
+    "messageID": "3997178386",
+    "messageHash": "39:6:HELLOTHERE",
+    "sender": "Nontsikeleo Panyapanya",
+    "recipient": "+27662980380",
+    "messageText": "Hello there",
+    "messageNumber": 6
+  },
+  {
+    "messageID": "7230205843",
+    "messageHash": "72:1:HELLOYOU",
+    "sender": "Nontsikelelo Panyapanya",
+    "recipient": "+27834557896",
+    "messageText": "Hello, how are you?",
+    "messageNumber": 1
+  },
+  {
+    "messageID": "9132222189",
+    "messageHash": "91:2:ITOMORROW",
+    "sender": "Nontsikelelo Panyapanya",
+    "recipient": "+27838884567",
+    "messageText": "I will see you tomorrow.",
+    "messageNumber": 2
+  },
+  {
+    "messageID": "8342576591",
+    "messageHash": "83:1:ITSME",
+    "sender": "Nontsikelelo Panyapanya",
+    "recipient": "+27836745693",
+    "messageText": "Its Me",
+    "messageNumber": 1
+  }
+]

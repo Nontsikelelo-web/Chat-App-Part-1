@@ -16,7 +16,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 class MessageTest {
 
-    // Test 1: A message of 250 characters is accepted.
+    // A message of 250 characters is accepted.
     @Test
     void testMessageWithin250Characters() {
         assertEquals(
@@ -24,7 +24,7 @@ class MessageTest {
                 Message.validateMessageLength("A".repeat(250)));
     }
 
-    // Test 2: A message exceeding 250 characters is rejected.
+    //A message exceeding 250 characters is rejected.
     @Test
     void testMessageExceeds250Characters() {
         assertEquals(
@@ -32,7 +32,7 @@ class MessageTest {
                 Message.validateMessageLength("A".repeat(255)));
     }
 
-    // Test 3: A valid international cellphone number is accepted.
+    // A valid international cellphone number is accepted.
     @Test
     void testValidRecipientNumber() {
         assertEquals(
@@ -40,7 +40,7 @@ class MessageTest {
                 Message.validateRecipientNumber("+27718693002"));
     }
 
-    // Test 4: An incorrectly formatted cellphone number is rejected.
+    // An incorrectly formatted cellphone number is rejected.
     @Test
     void testInvalidRecipientNumber() {
         assertFalse(Message.isValidRecipient("08575975889"));
@@ -48,7 +48,7 @@ class MessageTest {
         assertFalse(Message.isValidRecipient(null));
     }
 
-    // Test 5: The message hash matches the expected example.
+    //The message hash matches the expected example.
     @Test
     void testMessageHash() {
         Message message = new Message(
@@ -58,7 +58,7 @@ class MessageTest {
         assertEquals(message.getMessageID().substring(0, 2)+ ":0:HITONIGHT", message.getMessageHash());
     }
 
-    // Test 6: Additional message hashes are tested in a loop.
+    // Additional message hashes are tested in a loop.
     @Test
     void testMessageHashesInLoop() {
         String[] texts = {
@@ -84,7 +84,7 @@ class MessageTest {
         }
     }
 
-    // Test 7: The message ID has ten digits and IDs are unique.
+    //The message ID has ten digits and IDs are unique.
     @Test
     void testMessageID() {
         Message first = new Message(
@@ -97,7 +97,7 @@ class MessageTest {
         assertNotEquals(first.getMessageID(), second.getMessageID());
     }
 
-    // Test 8: Sending a message returns the correct response.
+    // Sending a message returns the correct response.
     @Test
     void testSendMessage() {
         Message message = new Message(
@@ -113,7 +113,7 @@ class MessageTest {
         assertEquals(before + 1, Message.getTotalMessagesSent());
     }
 
-    // Test 9: Disregarding a message returns the required response.
+    // Disregarding a message returns the required response.
     @Test
     void testDisregardMessage() {
         Message message = new Message(
@@ -126,7 +126,7 @@ class MessageTest {
         assertFalse(message.isSent());
     }
 
-    // Test 10: A message is stored in JSON successfully.
+    //A message is stored in JSON successfully.
     @Test
     void testStoreMessage() throws Exception {
         Path file = Files.createTempFile("message", ".json");
@@ -153,7 +153,7 @@ class MessageTest {
         }
     }
 
-    // Test 11: Multiple messages are stored in the JSON array.
+    //  Multiple messages are stored in the JSON array.
     @Test
     void testStoreMultipleMessages() throws Exception {
         Path file = Files.createTempFile("messages", ".json");
@@ -182,7 +182,7 @@ class MessageTest {
         }
     }
 
-    // Test 12: An empty recipient is rejected.
+    // An empty recipient is rejected.
     @Test
     void testEmptyRecipient() {
         assertThrows(
@@ -190,7 +190,7 @@ class MessageTest {
                 () -> new Message(0, "", "Hello"));
     }
 
-    // Test 13: An empty message is rejected.
+    // An empty message is rejected.
     @Test
     void testEmptyMessage() {
         assertThrows(
@@ -200,8 +200,7 @@ class MessageTest {
     @TempDir
     Path temporaryFolder;
 
-    // Lecturer test data: Message 1.
-    private Message createMessage1() {
+        private Message createMessage1() {
 
         return new Message(
                 1,
@@ -211,8 +210,7 @@ class MessageTest {
         );
     }
 
-    // Lecturer test data: Message 2.
-    private Message createMessage2() {
+        private Message createMessage2() {
 
         return new Message(
                 2,
@@ -222,7 +220,7 @@ class MessageTest {
         );
     }
 
-    // Lecturer test data: Message 3.
+    
     private Message createMessage3() {
 
         return new Message(
@@ -233,9 +231,7 @@ class MessageTest {
         );
     }
 
-    // Lecturer test data: Message 4.
-    // The lecturer's expected ID search value is 0838884567.
-    private Message createMessage4() {
+        private Message createMessage4() {
 
         return new Message(
                 "0838884567",
@@ -246,7 +242,7 @@ class MessageTest {
         );
     }
 
-    // Lecturer test data: Message 5.
+    
     private Message createMessage5() {
 
         return new Message(
@@ -257,7 +253,7 @@ class MessageTest {
         );
     }
 
-    // TEST 1: Sent Messages array correctly populated.
+    // Sent Messages array correctly populated.
     @Test
     void testSentMessagesArrayCorrectlyPopulated() {
 
@@ -279,7 +275,7 @@ class MessageTest {
         assertEquals(2, sentMessages.length);
     }
 
-    // TEST 2: Display the longest message.
+    // Display the longest message.
     @Test
     void testDisplayLongestMessage() {
 
@@ -301,7 +297,7 @@ class MessageTest {
         );
     }
 
-    // TEST 3: Search for message ID.
+    // Search for message ID.
     @Test
     void testSearchForMessageID() {
 
@@ -325,7 +321,7 @@ class MessageTest {
         );
     }
 
-    // TEST 4: Search messages for a particular recipient.
+    // Search messages for a particular recipient.
     @Test
     void testSearchMessagesByRecipient() {
 
@@ -355,7 +351,7 @@ class MessageTest {
         );
     }
 
-    // TEST 5: Delete a message using its message hash.
+    // Delete a message using its message hash.
     @Test
     void testDeleteMessageUsingMessageHash() throws IOException {
 
@@ -393,7 +389,7 @@ class MessageTest {
         );
     }
 
-    // TEST 6: Display report containing sent messages.
+    //  Display report containing sent messages.
     @Test
     void testDisplayMessageReport() {
 
@@ -418,7 +414,7 @@ class MessageTest {
         );
     }
 
-    // TEST 7: Check that a normal message receives a 10-digit ID.
+    //Check that a normal message receives a 10-digit ID.
     @Test
     void testMessageIDContainsTenDigits() {
 
@@ -430,7 +426,7 @@ class MessageTest {
     }
 
     
-    // TEST 10: Check that an empty message is rejected.
+    // Check that an empty message is rejected.
     @Test
     void testEmptyMessageIsRejected() {
 
@@ -445,7 +441,7 @@ class MessageTest {
         );
     }
 
-    // TEST 11: Check that a message over 250 characters is rejected.
+    //Check that a message over 250 characters is rejected.
     @Test
     void testMessageOver250CharactersIsRejected() {
 
@@ -462,7 +458,7 @@ class MessageTest {
         );
     }
 
-    // TEST 12: Check that messages can be written and read from JSON.
+    // Check that messages can be written and read from JSON.
     @Test
     void testReadAndWriteJSONFile() throws IOException {
 
@@ -496,7 +492,7 @@ class MessageTest {
         );
     }
 
-    // TEST 13: Check that storing a message saves it in JSON.
+    // Check that storing a message saves it in JSON.
     @Test
     void testStoreMessageInJSONFile() throws IOException {
 
@@ -522,7 +518,7 @@ class MessageTest {
         );
     }
 
-    // TEST 14: An unknown hash must not delete a message.
+    // An unknown hash must not delete a message.
     @Test
     void testUnknownHashDoesNotDeleteMessage() throws IOException {
 
@@ -548,7 +544,7 @@ class MessageTest {
         assertEquals(1, remainingMessages.size());
     }
 
-    // TEST 15: Check that JSON keeps special characters.
+    // Check that JSON keeps special characters.
     @Test
     void testJSONKeepsSpecialCharacters() throws IOException {
 

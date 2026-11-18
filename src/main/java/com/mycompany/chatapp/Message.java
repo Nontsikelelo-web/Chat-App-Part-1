@@ -32,7 +32,7 @@ public class Message {
 
     private boolean sent;
 
-    // Original constructor: keeps compatibility with existing tests.
+    // Original constructor
     public Message(int messageNumber, String recipient, String messageText) {
         this(
                 String.valueOf(
@@ -46,7 +46,7 @@ public class Message {
         );
     }
 
-    // Constructor used by ChatApp when the sender is known.
+    
     public Message(int messageNumber, String sender,
                    String recipient, String messageText) {
 
@@ -62,7 +62,7 @@ public class Message {
         );
     }
 
-    // Constructor for unit-test data with a specified ID.
+    // Constructor for unit test data
     public Message(String messageID, int messageNumber,
                    String sender, String recipient, String messageText) {
 
@@ -122,7 +122,7 @@ public class Message {
         }
     }
 
-    // Getters.
+    
     public String getMessageID() {
         return messageID;
     }
